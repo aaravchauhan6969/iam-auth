@@ -37,8 +37,10 @@ function hashOTP(otp) {
 // ==============================
 // REGISTER
 // ==============================
-
 app.post("/api/register", async (req, res) => {
+
+    console.log("REGISTER API HIT");
+    console.log("Email:", req.body.email);
 
     try {
 
