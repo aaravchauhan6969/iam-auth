@@ -337,54 +337,51 @@ app.post("/api/verify-email-otp", (req, res) => {
 
         // Mark email as verified
 
-       // Mark email as verified
-user.emailVerified = true;
+        user.emailVerified = true;
 
-console.log("EMAIL OTP VERIFIED");
-console.log("Generating SMS OTP...");
+        console.log("EMAIL OTP VERIFIED");
+        console.log("Generating SMS OTP...");
 
-const smsOtp = generateOTP();
+        // Remove email OTP challenge
+        const challengeIndex = otpChallenges.indexOf(challenge);
 
-console.log("SMS OTP GENERATED:", smsOtp);
-
-// Remove email OTP challenge
-const challengeIndex = otpChallenges.indexOf(challenge);
-
-otpChallenges.splice(challengeIndex, 1);
+        otpChallenges.splice(challengeIndex, 1);
 
 
-// Generate SMS OTP
-const smsOtp = generateOTP();
+        // Generate SMS OTP
+        const smsOtp = generateOTP();
 
-const smsOtpHash = hashOTP(smsOtp);
+        console.log("SMS OTP GENERATED:", smsOtp);
 
-
-// Create SMS challenge
-const smsChallenge = {
-
-    challengeId: crypto.randomUUID(),
-
-    userId: user.id,
-
-    channel: "sms",
-
-    otpHash: smsOtpHash,
-
-    expiresAt: Date.now() + 5 * 60 * 1000,
-
-    attempts: 0,
-
-    used: false
-
-};
+        const smsOtpHash = hashOTP(smsOtp);
 
 
-// Store SMS challenge
-otpChallenges.push(smsChallenge);
+        // Create SMS challenge
+        const smsChallenge = {
+
+            challengeId: crypto.randomUUID(),
+
+            userId: user.id,
+
+            channel: "sms",
+
+            otpHash: smsOtpHash,
+
+            expiresAt: Date.now() + 5 * 60 * 1000,
+
+            attempts: 0,
+
+            used: false
+
+        };
 
 
-// Simulated SMS
-console.log(`
+        // Store SMS challenge
+        otpChallenges.push(smsChallenge);
+
+
+        // Simulated SMS
+        console.log(`
 ========================================
 
 [SIMULATED SMS]
@@ -399,31 +396,18 @@ This OTP will expire in 5 minutes.
 `);
 
 
-// Send SMS challenge to frontend
-res.json({
-
-    success: true,
-
-    message: "Email verified. SMS OTP sent.",
-
-    emailVerified: true,
-
-    smsRequired: true,
-
-    challengeId: smsChallenge.challengeId
-
-});
-
-
-        // Successful response
-
-        res.json({
+        // Send SMS challenge to frontend
+        return res.json({
 
             success: true,
 
-            message: "Email verified successfully",
+            message: "Email verified. SMS OTP sent.",
 
-            emailVerified: true
+            emailVerified: true,
+
+            smsRequired: true,
+
+            challengeId: smsChallenge.challengeId
 
         });
 
