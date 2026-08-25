@@ -340,6 +340,12 @@ app.post("/api/verify-email-otp", (req, res) => {
        // Mark email as verified
 user.emailVerified = true;
 
+console.log("EMAIL OTP VERIFIED");
+console.log("Generating SMS OTP...");
+
+const smsOtp = generateOTP();
+
+console.log("SMS OTP GENERATED:", smsOtp);
 
 // Remove email OTP challenge
 const challengeIndex = otpChallenges.indexOf(challenge);
