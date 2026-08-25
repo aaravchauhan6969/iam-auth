@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Registration Successful</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="register-card">
+
+            <div class="icon">
+                ✅
+            </div>
+
+            <h1>Registration Successful</h1>
+
+            <p class="subtitle">
+                Your account has been created successfully.
+            </p>
+
+            <div class="verification-status">
+
+                <p>✓ Email verified</p>
+
+                <p>✓ Mobile verified</p>
+
+                <p>✓ MFA enabled</p>
+
+            </div>
+
+            <button
+                class="register-btn"
+                id="loginBtn"
+            >
+                Continue to Login
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        document
+            .getElementById("loginBtn")
+            .addEventListener("click", () => {
+
+                window.location.href =
+                    "login.html";
+
+            });
+
+    </script>
+
+</body>
+
+</html>
