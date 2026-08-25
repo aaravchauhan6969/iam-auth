@@ -36,9 +36,6 @@ function hashOTP(otp) {
 }
 
 
-// ==============================
-// REGISTER
-// ==============================
 app.post("/api/register", async (req, res) => {
 
     console.log("REGISTER API HIT");
@@ -223,10 +220,6 @@ This OTP will expire in 5 minutes.
     }
 
 });
-// ==============================
-// VERIFY EMAIL OTP
-// ==============================
-
 app.post("/api/verify-email-otp", (req, res) => {
 
     try {
@@ -427,11 +420,6 @@ This OTP will expire in 5 minutes.
     }
 
 });
-
-// ==============================
-// VERIFY SMS OTP
-// ==============================
-
 app.post("/api/verify-sms-otp", (req, res) => {
 
     try {
@@ -546,13 +534,7 @@ app.post("/api/verify-sms-otp", (req, res) => {
 
         user.mobileVerified = true;
 
-
-        // Enable MFA
-
         user.mfaEnabled = true;
-
-
-        // Remove used challenge
 
         const challengeIndex =
             otpChallenges.indexOf(challenge);
@@ -562,8 +544,6 @@ app.post("/api/verify-sms-otp", (req, res) => {
             1
         );
 
-
-        // Registration complete
 
         res.json({
 
